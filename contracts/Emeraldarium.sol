@@ -1,16 +1,16 @@
-pragma solidity >=0.4.21 <0.7.0;
+pragma solidity ^0.4.2;
 
 contract Emeraldarium {
-  // Constructor
+  string public name = "Emeraldarium";
+  string public standard = "Emeraldarium v1.0";
+  string public symbol = "EMD";
+
   uint256 public totalSupply;
 
-  constructor() public {
-    totalSupply = 1000000;
+  mapping(address => uint256) public balanceOf;
+
+  constructor(uint256 _initialSupply) public {
+    balanceOf[msg.sender] = _initialSupply;
+    totalSupply = _initialSupply;
   }
-
-
-  // Set the total number of tokens
-
-  // Read the total number of tokens
-
 }
