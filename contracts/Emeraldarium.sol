@@ -42,4 +42,17 @@ contract Emeraldarium {
     emit Approval(msg.sender, _spender, _value);
     return true;
   }
+
+  function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
+    require(balanceOf[_from] >= _value, "Not enough funds");
+    require(allowance[_from][msg.sender] >= _value, "Amount is not approved");
+
+    balanceOf[_from] -= _value;
+    balanceOf[_to] += _value;
+
+    allowance[_from][msg.sender] -= _value;
+
+    emit Transfer(_from, _to, _value);
+    return true;
+  }
 }
