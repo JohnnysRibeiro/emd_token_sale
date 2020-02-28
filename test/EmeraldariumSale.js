@@ -49,10 +49,30 @@ contract('EmeraldariumSale', function(accounts) {
       assert.equal(balance.toNumber(), tokensAvailable - numberOfTokens, 'decreases the tokens available');
       return tokenSaleInstance.buyTokens(numberOfTokens, { from: buyer, value: 1 })
     }).then(assert.fail).catch(function(error){
-      assert(error.message.indexOf('revert'), 'msg.value must equal number of tokens in wei');
+      assert(error.message.indexOf('revert') >= 0, 'msg.value must equal number of tokens in wei');
       return tokenSaleInstance.buyTokens(800000, { from: buyer, value: 1 })
     }).then(assert.fail).catch(function(error){
-      assert(error.message.indexOf('revert'), 'cannot purchase more tokens than available');
+      assert(error.message.indexOf('revert') >= 0, 'cannot purchase more tokens than available');
     });
   });
+
+  it('ends token sale', function(){return Emeraldarium.deployed().then(function(instance){
+    tokenInstance = instance;
+    return EmeraldariumSale.deployed();
+    }).then(function(instance){
+      tokenSaleInstance = instance;
+      return tokenSaleInstance.endSale({ from: buyer });
+    }).then(assert.fail).catch(function(error){
+      assert(error.message.indexOf('revert') >= 0, 'can only be ended by admin');
+      return tokenSaleInstance.endSale({ from: admin });
+    }).then(function(receipt){
+      return tokenInstance.balanceOf(admin);
+    }).then(function(balance){
+      assert.equal(balance.toNumber(), 999990, 'returns all unsold Emeraldarium to admin');
+      return web3.eth.getBalance(tokenSaleInstance.address);
+    }).then(function(balance){
+      assert.equal(balance, 0, 'transfers the balance to the admin');
+    });
+  });
+
 })

@@ -26,10 +26,16 @@ contract EmeraldariumSale {
   function buyTokens(uint256 _numberOfTokens) public payable {
     require(msg.value == multiply(_numberOfTokens, tokenPrice), 'Value must be equal to number of tokens * price');
     require(tokenContract.balanceOf(this) >= _numberOfTokens, 'Number of tokens must be less than or equal to available');
-    require(tokenContract.transfer(msg.sender, _numberOfTokens), 'Transfers the tokens correctly');
-    
+    require(tokenContract.transfer(msg.sender, _numberOfTokens), 'Must transfer the tokens correctly');
+
     tokensSold += _numberOfTokens;
-    
+
     emit Sell(msg.sender, _numberOfTokens);
+  }
+
+  function endSale() public {
+    require(msg.sender == admin, 'Can only be ended by admin');
+    require(tokenContract.transfer(admin, tokenContract.balanceOf(this)), 'Must transfer the remaining tokens to admin correctly');
+    admin.transfer(address(this).balance);
   }
 }
