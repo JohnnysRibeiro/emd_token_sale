@@ -4237,6 +4237,30 @@
     "version": "0.4.23+commit.124ca40d.Emscripten.clang"
   },
   "networks": {
+    "4": {
+      "events": {
+        "0x5e5e995ce3133561afceaa51a9a154d5db228cd7525d34df5185582c18d3df09": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_buyer",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "Sell",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x861E622Fc74Fc9525CFbA33aBdEDFB85D3570DaA",
+      "transactionHash": "0xd529bfff61d0aad11d291322cc6520abe32ac2c22f5a4260409ac857677658ce"
+    },
     "5777": {
       "events": {
         "0x5e5e995ce3133561afceaa51a9a154d5db228cd7525d34df5185582c18d3df09": {
@@ -4258,12 +4282,12 @@
         }
       },
       "links": {},
-      "address": "0x231560B49FE65cE282B8E1d8E714EF8a67f5e9fe",
-      "transactionHash": "0x46b7ddaac6f61d8de55f3956cecef3b208c477d7263df48deb958f7668062794"
+      "address": "0x32b7512711ad316C8014D5bd082405acE9263A3c",
+      "transactionHash": "0xcffaea1b31c45c1892e2da5ac392412d98536e6d05818e9b8c76d26f840e0375"
     }
   },
   "schemaVersion": "3.0.23",
-  "updatedAt": "2020-03-20T19:30:36.816Z",
+  "updatedAt": "2020-03-28T23:52:55.475Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}
